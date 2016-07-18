@@ -1,0 +1,15 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Ports": [
+    {
+      "ContainerPort": "80"
+    }
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": "/var/www",
+      "ContainerDirectory": "/opt/dockerapp"
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
