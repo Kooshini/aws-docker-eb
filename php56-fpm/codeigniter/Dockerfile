@@ -71,6 +71,8 @@ ADD . /var/www
 # Set appropriate permissions for CodeIgniter
 RUN chown -R www-data /var/www/application/cache && \
 chmod -R 0700 /var/www/application/cache && \
+chown -R www-data /var/www/application/logs && \
+chmod -R 0700 /var/www/application/logs && \
 chmod 0444 /var/www/application/config/*.php
 
 # Add nginx volumes
