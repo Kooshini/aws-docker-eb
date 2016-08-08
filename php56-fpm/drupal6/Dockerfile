@@ -46,13 +46,11 @@ ADD build/nginx/nginx-site-drupal6.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
 # Configure PHP
-RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
-RUN sed -i "s/;date.timezone =.*/date.timezone = Europe\/London/" /etc/php5/fpm/php.ini
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf
-RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/cli/php.ini
-RUN sed -i "s/;date.timezone =.*/date.timezone = Europe\/London/" /etc/php5/cli/php.ini
-RUN sed -i "s/;clear_env = no/clear_env = no/" /etc/php5/fpm/pool.d/www.conf
-RUN sed -i "s/error_reporting = .*/error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED/" /etc/php5/fpm/php.ini
+ADD build/php/php.ini /etc/php5/fpm/php.ini
+ADD build/php/php.ini /etc/php5/cli/php.ini
+ADD build/php/www.conf /etc/php5/fpm/pool.d/www.conf
+ADD build/php/php-fpm.conf /etc/php5/fpm/php-fpm.conf
+# Enable Mcrypt because of bug
 RUN php5enmod mcrypt
 
 # Add nginx service
